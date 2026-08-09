@@ -2,14 +2,14 @@
  
 Sistema de gestión veterinaria desarrollado en Java con Spring Boot.
  
-## Integrantes
- 
-- _(a completar)_
+
 ## Tecnologías
  
 - Java
 - Spring Boot
 - Maven
+-Bootstrap
+
 ## Cómo levantar el proyecto
  
 ### Requisitos previos
