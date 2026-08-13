@@ -22,6 +22,7 @@ public class Duenio {
     private String apellido;
     @Column(nullable = false, unique = true)
     private String cedula;
+    @Column(nullable = false)
     private Integer telefono;
     @Column(nullable = false)
     private String email;
