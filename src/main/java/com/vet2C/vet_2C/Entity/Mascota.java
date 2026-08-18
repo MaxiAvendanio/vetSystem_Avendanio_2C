@@ -1,5 +1,7 @@
 package com.vet2C.vet_2C.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,5 +28,6 @@ public class Mascota {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "duenio_id", nullable = false)
+    @JsonIgnore
     private Duenio duenio;
 }
