@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface DuenioRepository extends JpaRepository<Duenio,Long> {
     //buscar por nombre HQL
-    Optional<Duenio> findByNombre(String nombre);
+    Optional<Duenio> findByNombreIgnoreCase(String nombre);
     Optional<Duenio> findByEmail(String email);
-    Optional<Duenio> findByNombreAndApellido(String nombre, String apellido);
+    Optional<Duenio> findByNombreAndApellidoIgnoreCase(String nombre, String apellido);
 }

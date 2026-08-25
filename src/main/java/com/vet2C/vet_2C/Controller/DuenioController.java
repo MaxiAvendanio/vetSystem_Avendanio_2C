@@ -17,7 +17,8 @@ public class DuenioController {
 
     @PostMapping
     public Duenio registrarDuenio(@RequestBody Duenio duenio){
-        return duenioService.registrarDuenio(duenio);
+
+        return duenioService.registrarEntidad(duenio);
     }
 
     @GetMapping("/{id}")
@@ -33,7 +34,28 @@ public class DuenioController {
 
     @GetMapping
     public List<Duenio> listarTodos(){
-        List<Duenio> listaDuenios = duenioService.listarTodos();
+        List<Duenio> listaDuenios = duenioService.listarEntidades();
         return listaDuenios;
+    }
+    @PutMapping
+    public Duenio modificarDuenio(@RequestBody Duenio duenio) {
+        return duenioService.modificarEntidad(duenio);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarDuenio(@PathVariable Long id) {
+        duenioService.eliminarEntidad(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/buscar/{nombre}")
+    public ResponseEntity<Optional<Duenio>> buscarPorNombre(@PathVariable String nombre) {
+        Optional<Duenio> duenioBuscado = duenioService.buscarEntidadPorString(nombre);
+
+        if (duenioBuscado.isPresent()) {
+            return ResponseEntity.ok(duenioBuscado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

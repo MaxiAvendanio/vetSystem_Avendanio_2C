@@ -18,7 +18,8 @@ public class MascotaController {
 
     @PostMapping
     public Mascota registrarMascota(@RequestBody Mascota mascota){
-        return mascotaService.registrarMascota(mascota);
+
+        return mascotaService.registrarEntidad(mascota);
     }
 
     @GetMapping("/{id}")
@@ -34,7 +35,33 @@ public class MascotaController {
 
     @GetMapping
     public List<Mascota> listarTodos(){
-        List<Mascota> listaMascota = mascotaService.listarTodos();
+        List<Mascota> listaMascota = mascotaService.listarEntidades();
         return listaMascota;
+    }
+
+    @GetMapping("/existe")
+    public boolean existeMascota(@RequestParam String nombre, @RequestParam Long duenioId) {
+        return mascotaService.existeMascotaPorNombreYDuenio(nombre, duenioId);
+    }
+
+    @GetMapping("/contar")
+    public long contarPorEspecie(@RequestParam String especie) {
+        return mascotaService.contarPorEspecie(especie);
+    }
+
+    @GetMapping("/raza/{raza}")
+    public ResponseEntity<Optional<Mascota>> buscarPorRaza(@PathVariable String raza) {
+        Optional<Mascota> mascota = mascotaService.buscarPorRaza(raza);
+
+        if (mascota.isPresent()) {
+            return ResponseEntity.ok(mascota);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/duenio/{duenioId}")
+    public List<Mascota> listarPorDuenio(@PathVariable Long duenioId) {
+        return mascotaService.listarPorDuenio(duenioId);
     }
 }
