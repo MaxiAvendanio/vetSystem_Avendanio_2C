@@ -28,7 +28,7 @@ public class Turno {
     private EstadoTurno estado = EstadoTurno.PENDIENTE;
     private String observaciones;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)//o onetoone
     @JoinColumn(name = "mascota_id", nullable = false)
     private Mascota mascota;
 

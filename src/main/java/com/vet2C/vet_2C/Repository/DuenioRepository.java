@@ -10,4 +10,5 @@ public interface DuenioRepository extends JpaRepository<Duenio,Long> {
     Optional<Duenio> findByNombreIgnoreCase(String nombre);
     Optional<Duenio> findByEmail(String email);
     Optional<Duenio> findByNombreAndApellidoIgnoreCase(String nombre, String apellido);
+    boolean existsByCedula(String cedula);
 }
