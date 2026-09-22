@@ -43,8 +43,14 @@ public class TurnoService implements InterfaceService<TurnoRequestDTO, TurnoResp
         Veterinario veterinario = veterinarioRepository.findById(turnoRequestDTO.getIdVeterinario())
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró un veterinario con id: " + turnoRequestDTO.getIdVeterinario()));
 
-        if (turnoRepository.existsByVeterinarioIdAndFechaAndHora(turnoRequestDTO.getIdVeterinario(), turnoRequestDTO.getFecha(), turnoRequestDTO.getHora())) {
-            throw new TurnoSuperpuestoException("El veterinario ya tiene un turno asignado en ese horario");
+        Optional<Turno> turnoExistente = turnoRepository.findByVeterinarioIdAndFechaAndHora(
+                turnoRequestDTO.getIdVeterinario(), turnoRequestDTO.getFecha(), turnoRequestDTO.getHora());
+
+        if (turnoExistente.isPresent()) {
+            Turno turno = turnoExistente.get();
+            throw new TurnoSuperpuestoException(
+                    "El veterinario ya tiene el turno #" + turno.getId() +
+                            " programado el " + turno.getFecha() + " a las " + turno.getHora());
         }
 
         Turno turno = new Turno();
