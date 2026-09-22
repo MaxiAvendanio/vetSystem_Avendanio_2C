@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patitas Felices — Clínica Veterinaria</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="estilo.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ===== Navbar ===== -->
+<nav class="navbar navbar-expand-lg pf-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">🐾 Patitas Felices</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#pfNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="pfNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="duenios.html">Dueños</a></li>
+                <li class="nav-item"><a class="nav-link" href="mascotas.html">Mascotas</a></li>
+                <li class="nav-item"><a class="nav-link" href="veterinarios.html">Veterinarios</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- ===== Carrusel ===== -->
+<div id="carruselHome" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carruselHome" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#carruselHome" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#carruselHome" data-bs-slide-to="2"></button>
+    </div>
+    <div class="carousel-inner">
+
+        <div class="carousel-item active">
+            <div class="pf-hero-slide pf-slide-1">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <div class="eyebrow">Bienvenidos</div>
+                            <h1>Cuidamos a quien te cuida sin condiciones</h1>
+                            <p>Gestionamos dueños, mascotas y turnos de la clínica en un solo lugar, para que la atención sea rápida y ordenada.</p>
+                            <a href="mascotas.html" class="btn btn-pf-primario mt-2">Ver mascotas registradas</a>
+                        </div>
+                        <div class="col-lg-5 text-center d-none d-lg-block">
+                            <span class="pf-pata">🐶</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <div class="pf-hero-slide pf-slide-2">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <div class="eyebrow">Nuestro equipo</div>
+                            <h1>Veterinarios con especialidades para cada consulta</h1>
+                            <p>Desde clínica general hasta cirugía: asigná cada turno al profesional correcto según su especialidad y matrícula.</p>
+                            <a href="veterinarios.html" class="btn btn-pf-primario mt-2">Ver veterinarios</a>
+                        </div>
+                        <div class="col-lg-5 text-center d-none d-lg-block">
+                            <span class="pf-pata">🩺</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <div class="pf-hero-slide pf-slide-3">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <div class="eyebrow">Historia clínica</div>
+                            <h1>Cada dueño, con sus mascotas siempre a mano</h1>
+                            <p>Registrá nuevos dueños y consultá sus datos de contacto en segundos, sin planillas sueltas.</p>
+                            <a href="duenios.html" class="btn btn-pf-primario mt-2">Ver dueños</a>
+                        </div>
+                        <div class="col-lg-5 text-center d-none d-lg-block">
+                            <span class="pf-pata">🐾</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carruselHome" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carruselHome" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<!-- ===== Accesos rápidos ===== -->
+<div class="container my-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="pf-servicio">
+                <div class="icono">👤</div>
+                <h3>Dueños</h3>
+                <p>Alta, edición y baja de los dueños registrados en la clínica, con sus datos de contacto.</p>
+                <a href="duenios.html" class="btn btn-pf-secundario btn-sm mt-3">Gestionar dueños</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="pf-servicio">
+                <div class="icono">🐾</div>
+                <h3>Mascotas</h3>
+                <p>Registrá cada mascota asociada a su dueño, con especie, raza y fecha de nacimiento.</p>
+                <a href="mascotas.html" class="btn btn-pf-secundario btn-sm mt-3">Gestionar mascotas</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="pf-servicio">
+                <div class="icono">🩺</div>
+                <h3>Veterinarios</h3>
+                <p>Administrá el staff profesional: matrícula, especialidad y datos de contacto.</p>
+                <a href="veterinarios.html" class="btn btn-pf-secundario btn-sm mt-3">Gestionar veterinarios</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="pf-footer">
+    <div class="container text-center">
+        🐾 Patitas Felices — Sistema interno de gestión
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

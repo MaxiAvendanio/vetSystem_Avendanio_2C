@@ -1,0 +1,197 @@
+/* ============================================================
+   Patitas Felices — hoja de estilos compartida
+   Paleta propia (no el azul/gris por defecto de Bootstrap)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --pf-tinta: #16241f;
+  --pf-fondo: #f4f7f2;
+  --pf-panel: #ffffff;
+  --pf-teal: #17453c;
+  --pf-teal-suave: #245c50;
+  --pf-coral: #e4623f;
+  --pf-coral-suave: #f3ceb9;
+  --pf-oro: #e2a54a;
+  --pf-linea: #dfe6de;
+  --radio: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--pf-fondo);
+  color: var(--pf-tinta);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+h1, h2, h3, h4, .pf-serif {
+  font-family: 'Fraunces', Georgia, serif;
+  color: var(--pf-teal);
+  letter-spacing: -0.01em;
+}
+
+a { color: var(--pf-teal-suave); }
+a:hover { color: var(--pf-coral); }
+
+/* ---------- Navbar ---------- */
+.pf-navbar {
+  background: var(--pf-teal);
+  padding: 0.9rem 0;
+}
+.pf-navbar .navbar-brand {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.35rem;
+  color: #fdf8f1 !important;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.pf-navbar .nav-link {
+  color: #d9e6df !important;
+  font-weight: 500;
+  padding: 0.5rem 1rem !important;
+  border-radius: 999px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.pf-navbar .nav-link:hover { background: rgba(255,255,255,0.08); color: #fff !important; }
+.pf-navbar .nav-link.active { background: var(--pf-coral); color: #fff !important; }
+
+/* ---------- Botones ---------- */
+.btn-pf-primario {
+  background: var(--pf-coral);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.55rem 1.4rem;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.btn-pf-primario:hover {
+  background: #d9552f;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(228, 98, 63, 0.3);
+}
+.btn-pf-secundario {
+  background: transparent;
+  border: 1.5px solid var(--pf-teal);
+  color: var(--pf-teal);
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.5rem 1.3rem;
+}
+.btn-pf-secundario:hover { background: var(--pf-teal); color: #fff; }
+
+.btn-pf-editar {
+  border: 1.5px solid var(--pf-oro);
+  color: #8a5f14;
+  background: #fdf3e2;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.85rem;
+  font-weight: 600;
+}
+.btn-pf-editar:hover { background: var(--pf-oro); color: #fff; }
+
+.btn-pf-eliminar {
+  border: 1.5px solid #d9695a;
+  color: #b23a2b;
+  background: #fbe9e6;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.85rem;
+  font-weight: 600;
+}
+.btn-pf-eliminar:hover { background: #d9695a; color: #fff; }
+
+/* ---------- Carrusel Home ---------- */
+.pf-hero-slide {
+  min-height: 62vh;
+  display: flex;
+  align-items: center;
+  padding: 3rem 0;
+}
+.pf-hero-slide .eyebrow {
+  color: var(--pf-coral);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.pf-hero-slide h1 {
+  font-size: clamp(2.1rem, 4vw, 3.2rem);
+  font-weight: 600;
+  max-width: 14ch;
+}
+.pf-hero-slide p {
+  max-width: 46ch;
+  font-size: 1.08rem;
+  color: #3c4a44;
+}
+.pf-slide-1 { background: linear-gradient(135deg, #eef4ec 0%, #f4f7f2 60%); }
+.pf-slide-2 { background: linear-gradient(135deg, #fbeee3 0%, #f4f7f2 60%); }
+.pf-slide-3 { background: linear-gradient(135deg, #eaf1f0 0%, #f4f7f2 60%); }
+
+.pf-pata {
+  font-size: 5.5rem;
+  line-height: 1;
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: var(--pf-teal);
+  width: 9px; height: 9px; border-radius: 50%;
+}
+.carousel-control-prev-icon, .carousel-control-next-icon { filter: invert(0.35); }
+
+/* ---------- Tarjetas de servicios en Home ---------- */
+.pf-servicio {
+  background: var(--pf-panel);
+  border: 1px solid var(--pf-linea);
+  border-radius: var(--radio);
+  padding: 1.6rem;
+  height: 100%;
+}
+.pf-servicio .icono { font-size: 2rem; }
+.pf-servicio h3 { font-size: 1.15rem; margin-top: 0.6rem; }
+.pf-servicio p { color: #55635c; margin-bottom: 0; font-size: 0.95rem; }
+
+/* ---------- Tablas ---------- */
+.pf-panel {
+  background: var(--pf-panel);
+  border: 1px solid var(--pf-linea);
+  border-radius: var(--radio);
+  padding: 1.5rem;
+}
+.table thead {
+  background: var(--pf-teal);
+}
+.table thead th {
+  color: #fdf8f1;
+  font-weight: 600;
+  border: none;
+  font-size: 0.85rem;
+  text-transform: none;
+}
+.table td, .table th { vertical-align: middle; }
+.table-hover tbody tr:hover { background: #f2f6f0; }
+
+/* ---------- Modales ---------- */
+.modal-content { border-radius: var(--radio); border: none; }
+.modal-header { border-bottom: 1px solid var(--pf-linea); }
+.modal-footer { border-top: 1px solid var(--pf-linea); }
+.form-label { font-weight: 600; color: var(--pf-teal); font-size: 0.9rem; }
+.form-control:focus, .form-select:focus {
+  border-color: var(--pf-teal-suave);
+  box-shadow: 0 0 0 0.2rem rgba(36, 92, 80, 0.15);
+}
+
+footer.pf-footer {
+  background: var(--pf-teal);
+  color: #cfe0d8;
+  padding: 1.4rem 0;
+  margin-top: 3rem;
+  font-size: 0.9rem;
+}
