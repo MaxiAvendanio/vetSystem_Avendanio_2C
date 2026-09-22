@@ -1,17 +1,14 @@
 package com.vet2C.vet_2C.Service;
 
+import com.vet2C.vet_2C.DTO.MedicamentoResponseDTO;
 import com.vet2C.vet_2C.DTO.TurnoRequestDTO;
 import com.vet2C.vet_2C.DTO.TurnoResponseDTO;
-import com.vet2C.vet_2C.Entity.EstadoTurno;
-import com.vet2C.vet_2C.Entity.Mascota;
-import com.vet2C.vet_2C.Entity.Turno;
-import com.vet2C.vet_2C.Entity.Veterinario;
-import com.vet2C.vet_2C.Exception.DuplicateResourceException;
-import com.vet2C.vet_2C.Exception.HorarioInvalidoException;
-import com.vet2C.vet_2C.Exception.ResourceNotFoundException;
-import com.vet2C.vet_2C.Exception.TurnoSuperpuestoException;
+import com.vet2C.vet_2C.Entity.*;
+import com.vet2C.vet_2C.Exception.*;
+import com.vet2C.vet_2C.Mapper.MedicamentoMapper;
 import com.vet2C.vet_2C.Mapper.TurnoMapper;
 import com.vet2C.vet_2C.Repository.MascotaRepository;
+import com.vet2C.vet_2C.Repository.MedicamentoRepository;
 import com.vet2C.vet_2C.Repository.TurnoRepository;
 import com.vet2C.vet_2C.Repository.VeterinarioRepository;
 import com.vet2C.vet_2C.Service.Base.InterfaceService;
@@ -33,6 +30,8 @@ public class TurnoService implements InterfaceService<TurnoRequestDTO, TurnoResp
     private final MascotaRepository mascotaRepository;
     private final VeterinarioRepository veterinarioRepository;
     private final TurnoMapper turnoMapper;
+    private final MedicamentoMapper medicamentoMapper;
+    private final MedicamentoRepository medicamentoRepository;
 
 
     @Override
@@ -130,6 +129,28 @@ public class TurnoService implements InterfaceService<TurnoRequestDTO, TurnoResp
                 .toList();
     }
 
+    public List<MedicamentoResponseDTO> listarMedicamentos(Long turnoId) {
+        Turno turno = turnoRepository.findById(turnoId)
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró un turno con id: " + turnoId));
+        return turno.getMedicamentos().stream().map(medicamentoMapper::toDto).toList();
+    }
+
+    @Transactional
+    public void asociarMedicamentoATurno(Long turnoId, Long medicamentoId) {
+        Turno turno = turnoRepository.findById(turnoId)
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró un turno con id: " + turnoId));
+        Medicamento medicamento = medicamentoRepository.findById(medicamentoId)
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró un medicamento con id: " + medicamentoId));
+
+        if (medicamento.getStock() <= 0) {
+            throw new StockInsuficienteException("No hay stock disponible del medicamento: " + medicamento.getNombre());
+        }
+
+        medicamento.setStock(medicamento.getStock() - 1);
+        turno.getMedicamentos().add(medicamento);
+        medicamentoRepository.save(medicamento);
+        turnoRepository.save(turno);
+    }
 
     private static final LocalTime HORA_APERTURA = LocalTime.of(8, 0);
     private static final LocalTime HORA_CIERRE = LocalTime.of(18, 0);
