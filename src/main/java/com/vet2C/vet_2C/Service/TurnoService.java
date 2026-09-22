@@ -7,7 +7,9 @@ import com.vet2C.vet_2C.Entity.Mascota;
 import com.vet2C.vet_2C.Entity.Turno;
 import com.vet2C.vet_2C.Entity.Veterinario;
 import com.vet2C.vet_2C.Exception.DuplicateResourceException;
+import com.vet2C.vet_2C.Exception.HorarioInvalidoException;
 import com.vet2C.vet_2C.Exception.ResourceNotFoundException;
+import com.vet2C.vet_2C.Exception.TurnoSuperpuestoException;
 import com.vet2C.vet_2C.Mapper.TurnoMapper;
 import com.vet2C.vet_2C.Repository.MascotaRepository;
 import com.vet2C.vet_2C.Repository.TurnoRepository;
@@ -26,12 +28,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class TurnoService implements InterfaceService<TurnoRequestDTO, TurnoResponseDTO>{
-    @Autowired
-    private TurnoRepository turnoRepository;
-    @Autowired
+
+    private final TurnoRepository turnoRepository;
     private final MascotaRepository mascotaRepository;
     private final VeterinarioRepository veterinarioRepository;
-    @Autowired
     private final TurnoMapper turnoMapper;
 
 
@@ -45,7 +45,7 @@ public class TurnoService implements InterfaceService<TurnoRequestDTO, TurnoResp
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró un veterinario con id: " + turnoRequestDTO.getIdVeterinario()));
 
         if (turnoRepository.existsByVeterinarioIdAndFechaAndHora(turnoRequestDTO.getIdVeterinario(), turnoRequestDTO.getFecha(), turnoRequestDTO.getHora())) {
-            throw new DuplicateResourceException("El veterinario ya tiene un turno asignado en ese horario");
+            throw new TurnoSuperpuestoException("El veterinario ya tiene un turno asignado en ese horario");
         }
 
         Turno turno = new Turno();
@@ -136,11 +136,11 @@ public class TurnoService implements InterfaceService<TurnoRequestDTO, TurnoResp
 
     private void validarHorario(LocalTime hora) {
         if (hora.isBefore(HORA_APERTURA) || hora.isAfter(HORA_CIERRE.minusMinutes(30))) {
-            throw new IllegalArgumentException(
+            throw new HorarioInvalidoException(
                     "El horario debe estar entre " + HORA_APERTURA + " y " + HORA_CIERRE);
         }
         if (hora.getMinute() != 0 && hora.getMinute() != 30) {
-            throw new IllegalArgumentException(
+            throw new HorarioInvalidoException(
                     "Los turnos solo se pueden asignar en punto o y media (ej: 09:00, 09:30)");
         }
     }

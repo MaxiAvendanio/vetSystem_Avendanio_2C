@@ -2,12 +2,9 @@ package com.vet2C.vet_2C.Controller;
 
 import com.vet2C.vet_2C.DTO.TurnoRequestDTO;
 import com.vet2C.vet_2C.DTO.TurnoResponseDTO;
-import com.vet2C.vet_2C.Exception.DuplicateResourceException;
-import com.vet2C.vet_2C.Exception.HorarioInvalidoException;
-import com.vet2C.vet_2C.Exception.ResourceNotFoundException;
 import com.vet2C.vet_2C.Service.TurnoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,29 +16,17 @@ import java.util.List;
 @RequestMapping("api/turnos")
 @RequiredArgsConstructor
 public class TurnoController {
-    @Autowired
-    private TurnoService turnoService;
+
+    private final TurnoService turnoService;
 
     @PostMapping
-    public ResponseEntity<?> guardarTurno(@RequestBody TurnoRequestDTO dto) {
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(turnoService.registrarEntidad(dto));
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (DuplicateResourceException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        }catch(HorarioInvalidoException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+    public ResponseEntity<TurnoResponseDTO> guardarTurno(@Valid @RequestBody TurnoRequestDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(turnoService.registrarEntidad(dto));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(turnoService.buscarPorId(id));
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<TurnoResponseDTO> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(turnoService.buscarPorId(id));
     }
 
     @GetMapping
@@ -55,26 +40,14 @@ public class TurnoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> modificarTurno(@PathVariable Long id, @RequestBody TurnoRequestDTO dto) {
-        try {
-            return ResponseEntity.ok(turnoService.modificarEntidad(id, dto));
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (DuplicateResourceException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        }catch(HorarioInvalidoException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+    public ResponseEntity<TurnoResponseDTO> modificarTurno(@PathVariable Long id, @Valid @RequestBody TurnoRequestDTO dto) {
+        return ResponseEntity.ok(turnoService.modificarEntidad(id, dto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarTurno(@PathVariable Long id) {
-        try {
-            turnoService.eliminarEntidad(id);
-            return ResponseEntity.noContent().build();
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<Void> eliminarTurno(@PathVariable Long id) {
+        turnoService.eliminarEntidad(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/veterinario/{idVeterinario}")

@@ -84,5 +84,4 @@ public class DuenioService implements InterfaceService<DuenioRequestDTO, DuenioR
         return duenioMapper.toDto(duenioRepository.save(duenio));
     }
 
-
 }

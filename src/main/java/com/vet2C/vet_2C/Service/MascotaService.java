@@ -69,11 +69,10 @@ public class MascotaService implements InterfaceService<MascotaRequestDTO, Masco
 
     @Override
     public void eliminarEntidad(Long id) {
-        Optional<Mascota> mascota = mascotaRepository.findById(id);
-        if(mascota.isPresent())
-        {
-            mascotaRepository.deleteById(id);
+        if(!mascotaRepository.existsById(id)){
+            throw new ResourceNotFoundException("No se encontro una moscota con id: " + id);
         }
+        mascotaRepository.deleteById(id);
     }
 
     @Override
