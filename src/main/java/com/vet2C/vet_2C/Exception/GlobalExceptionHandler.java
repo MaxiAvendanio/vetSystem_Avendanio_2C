@@ -56,6 +56,20 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), request);
     }
 
+    @ExceptionHandler(StockInsuficienteException.class)
+    public ResponseEntity<ErrorResponse> handleStockInsuficienteException(StockInsuficienteException e, HttpServletRequest request) {
+        return ResponseEntity
+                .status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .body(new ErrorResponse(LocalDateTime.now(), 422, "Unprocessable Entity", e.getMessage(), request.getRequestURI()));
+    }
+
+    @ExceptionHandler(CupoExcedidoException.class)
+    public ResponseEntity<ErrorResponse> handleCupoExcedidoException(CupoExcedidoException e, HttpServletRequest request) {
+        return ResponseEntity
+                .status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .body(new ErrorResponse(LocalDateTime.now(), 422, "Unprocessable Entity", e.getMessage(), request.getRequestURI()));
+    }
+
     private ResponseEntity<ErrorResponse> build(HttpStatus status, String mensaje, HttpServletRequest request) {
         ErrorResponse error = new ErrorResponse(
                 LocalDateTime.now(),
