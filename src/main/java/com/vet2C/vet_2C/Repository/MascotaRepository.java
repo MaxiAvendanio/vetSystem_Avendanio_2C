@@ -11,5 +11,6 @@ public interface MascotaRepository extends JpaRepository<Mascota,Long> {
     Optional<Mascota> findByRazaIgnoreCase(String raza);
     List<Mascota> findByDuenioId(Long duenioId);
     boolean existsByNombreAndDuenioId (String nombre, Long duenioId);
-    long countByEspecieIgnoreCase(String especie); //probar con ignoreCase y sin
+    long countByEspecieIgnoreCase(String especie);
+    long countByDuenioId(Long duenioId);
 }

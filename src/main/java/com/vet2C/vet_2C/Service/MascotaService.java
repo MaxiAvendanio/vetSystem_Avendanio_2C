@@ -6,6 +6,7 @@ import com.vet2C.vet_2C.DTO.MascotaRequestDTO;
 import com.vet2C.vet_2C.DTO.MascotaResponseDTO;
 import com.vet2C.vet_2C.Entity.Duenio;
 import com.vet2C.vet_2C.Entity.Mascota;
+import com.vet2C.vet_2C.Exception.CupoExcedidoException;
 import com.vet2C.vet_2C.Exception.DuplicateResourceException;
 import com.vet2C.vet_2C.Exception.ResourceNotFoundException;
 import com.vet2C.vet_2C.Mapper.MascotaMapper;
@@ -36,6 +37,9 @@ public class MascotaService implements InterfaceService<MascotaRequestDTO, Masco
             throw new DuplicateResourceException("La mascota ya está registrada: " + mascotaRequestDTO.getNombre());
         }
 
+        if (mascotaRepository.countByDuenioId(mascotaRequestDTO.getIdDuenio()) >= 5) {
+            throw new CupoExcedidoException("El dueño ya alcanzó el máximo de 5 mascotas activas");
+        }
         Mascota mascota = new Mascota();
         mascota.setNombre(mascotaRequestDTO.getNombre());
         mascota.setEspecie(mascotaRequestDTO.getEspecie());
