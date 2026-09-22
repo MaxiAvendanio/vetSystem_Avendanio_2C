@@ -1,5 +1,6 @@
 package com.vet2C.vet_2C.Controller;
 
+import com.vet2C.vet_2C.DTO.MedicamentoResponseDTO;
 import com.vet2C.vet_2C.DTO.TurnoRequestDTO;
 import com.vet2C.vet_2C.DTO.TurnoResponseDTO;
 import com.vet2C.vet_2C.Exception.ErrorResponse;
@@ -106,5 +107,16 @@ public class TurnoController {
     @GetMapping("/duenio/{nombre}")
     public List<TurnoResponseDTO> listarPorDuenio(@Parameter(example = "Maxi") @PathVariable String nombre) {
         return turnoService.listarPorDuenio(nombre);
+    }
+
+    @GetMapping("/{id}/medicamentos")
+    public List<MedicamentoResponseDTO> listarMedicamentosDeTurno(@PathVariable Long id) {
+        return turnoService.listarMedicamentos(id);
+    }
+
+    @PostMapping("/{turnoId}/medicamentos/{medicamentoId}")
+    public ResponseEntity<Void> asociarMedicamento(@PathVariable Long turnoId, @PathVariable Long medicamentoId) {
+        turnoService.asociarMedicamentoATurno(turnoId, medicamentoId);
+        return ResponseEntity.ok().build();
     }
 }
